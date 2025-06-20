@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.0</version>
+        <version>3.5.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>io.github.ilankumarani</groupId>
@@ -66,8 +66,9 @@
                                 <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
                                 <defaultSchemaName>h2</defaultSchemaName>
                                 <changeLogFile>src/main/resources/db.changelog/changelog.yml</changeLogFile>
-                                <url>jdbc:h2:${project.build.directory}/h2/tl_tables;</url>
-
+                                <url>jdbc:h2:${project.build.directory}/h2/tl_tables</url>
+                                <username>sa</username>  <!-- Directly specify the username -->
+                                <password>password</password>  <!--  Consider using a more secure method for password -->
                             </configuration>
                         </execution>
                     </executions>
@@ -91,7 +92,9 @@
                             <configuration>
                                 <skip>${skip-querydsl-sql-generation}</skip>
                                 <jdbcDriver>org.h2.Driver</jdbcDriver>
-                                <jdbcUrl>jdbc:h2:${project.build.directory}/h2/tl_tables;</jdbcUrl>
+                                <jdbcUrl>jdbc:h2:${project.build.directory}/h2/tl_tables</jdbcUrl>
+                                <jdbcUser>sa</jdbcUser>
+                                <jdbcPassword>password</jdbcPassword>
                                 <packageName>com.ilan.query.sql</packageName>
                                 <targetFolder>${project.basedir}/target/generated-sources/java</targetFolder>
                                 <namePrefix>S</namePrefix>
@@ -104,6 +107,7 @@
                                 <beanPrefix>P</beanPrefix>
                                 <beanPrintSupertype>true</beanPrintSupertype>
                             </configuration>
+                            <id>querdsl-sql-from-liquibase</id>
                             <phase>generate-sources</phase>
                             <goals>
                                 <goal>export</goal>

@@ -30,6 +30,8 @@
                     <defaultSchemaName>h2</defaultSchemaName>
                     <changeLogFile>src/main/resources/db.changelog/changelog.yml</changeLogFile>
                     <url>jdbc:h2:${project.build.directory}/h2/tl_tables;</url>
+                    <username>sa</username>  <!-- Directly specify the username -->
+                    <password>password</password>  <!--  Consider using a more secure method for password -->
                 </configuration>
             </execution>
         </executions>
@@ -53,6 +55,8 @@
             <configuration>
                 <jdbcDriver>org.h2.Driver</jdbcDriver>
                 <jdbcUrl>jdbc:h2:${project.build.directory}/h2/tl_tables;</jdbcUrl>
+                <jdbcUser>sa</jdbcUser>
+                <jdbcPassword>password</jdbcPassword>
                 <packageName>com.ilan.query.sql</packageName>
                 <targetFolder>${project.basedir}/target/generated-sources/java</targetFolder>
                 <namePrefix>S</namePrefix>
