@@ -1,0 +1,49 @@
+
+```xml
+<plugin>
+    <groupId>org.liquibase</groupId>
+    <artifactId>liquibase-maven-plugin</artifactId>
+    <version>3.4.2</version>
+    <configuration>
+        <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+        <defaultSchemaName>MYSCHEMA</defaultSchemaName>
+        <changeLogFile>src/main/resources/db/master.changelog.xml</changeLogFile>
+        <url>jdbc:h2:./target/tl_tables;AUTO_SERVER=TRUE;MV_STORE=FALSE;MVCC=FALSE;INIT=create schema IF NOT EXISTS MYSCHEMA</url>
+        <driver>org.h2.Driver</driver>
+    </configuration>
+    <executions>
+        <execution>
+            <phase>initialize</phase>
+            <goals>
+                <goal>update</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>
+<plugin>
+    <groupId>com.mysema.querydsl</groupId>
+    <artifactId>querydsl-maven-plugin</artifactId>
+    <version>3.7.4</version>
+    <executions>
+        <execution>
+            <goals>
+                <goal>export</goal>
+            </goals>
+        </execution>
+    </executions>
+    <configuration>
+        <jdbcDriver>org.h2.Driver</jdbcDriver>
+        <jdbcUrl>jdbc:h2:${project.basedir}/target/tl_tables;AUTO_SERVER=TRUE</jdbcUrl>
+        <packageName>my.test.db</packageName>
+        <tableNamePattern>TABELE1,TABLE2<!--your tables here--></tableNamePattern>
+        <targetFolder>${project.basedir}/target/generated-sources/java</targetFolder>
+    </configuration>
+    <dependencies>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.196</version>
+        </dependency>
+    </dependencies>
+</plugin>
+```
