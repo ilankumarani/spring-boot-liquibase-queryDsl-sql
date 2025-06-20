@@ -116,6 +116,26 @@
                             <artifactId>h2</artifactId>
                             <version>${h2-db-version}</version>
                         </dependency>
+                        <dependency>
+                            <groupId>io.github.openfeign.querydsl</groupId>
+                            <artifactId>querydsl-jpa</artifactId>
+                            <version>${querydsl-maven-plugin.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>jakarta.persistence</groupId>
+                            <artifactId>jakarta.persistence-api</artifactId>
+                            <version>${jakarta-persistence.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>io.github.openfeign.querydsl</groupId>
+                            <artifactId>querydsl-apt</artifactId>
+                            <version>${querydsl-maven-plugin.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>io.github.classgraph</groupId>
+                            <artifactId>classgraph</artifactId>
+                            <version>${classgraph.version}</version>
+                        </dependency>
                     </dependencies>
                 </plugin>
 
