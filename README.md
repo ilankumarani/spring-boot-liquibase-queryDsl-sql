@@ -6,6 +6,8 @@
 <properties>
     <querydsl-maven-plugin.version>7.0</querydsl-maven-plugin.version>
     <h2.version>2.3.232</h2.version>
+    <!-- liquibase.version from spring parent-->
+    <liquibase-maven-plugin>${liquibase.version}</liquibase-maven-plugin>
 </properties>
 
 <plugins>
@@ -13,7 +15,7 @@
     <plugin>
         <groupId>org.liquibase</groupId>
         <artifactId>liquibase-maven-plugin</artifactId>
-        <version>4.25.1</version>
+        <version>${liquibase-maven-plugin}</version>
     
         <executions>
             <execution>

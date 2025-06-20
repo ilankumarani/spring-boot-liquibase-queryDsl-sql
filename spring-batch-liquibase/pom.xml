@@ -28,7 +28,7 @@
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
-                <version>4.25.1</version>
+                <version>${liquibase.version}</version>
 
                 <executions>
                     <execution>
@@ -77,12 +77,12 @@
                             <beanPrefix>P</beanPrefix>
                             <beanPrintSupertype>true</beanPrintSupertype>
 
-<!--                            <packageName>com.abc.entity</packageName>-->
+                            <!--                            <packageName>com.abc.entity</packageName>-->
                         </configuration>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>export</goal>
-<!--                            <goal>jpa-export</goal>-->
+                            <!--                            <goal>jpa-export</goal>-->
                         </goals>
                     </execution>
                 </executions>
