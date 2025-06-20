@@ -1,0 +1,83 @@
+
+
+
+```xml
+
+<properties>
+    <querydsl-maven-plugin.version>7.0</querydsl-maven-plugin.version>
+    <h2.version>2.3.232</h2.version>
+</properties>
+
+<plugins>
+
+    <plugin>
+        <groupId>org.liquibase</groupId>
+        <artifactId>liquibase-maven-plugin</artifactId>
+        <version>4.25.1</version>
+    
+        <executions>
+            <execution>
+                <id>update-schema</id>
+                <phase>generate-sources</phase>
+                <goals>
+                    <goal>update</goal>
+                </goals>
+                <configuration>
+                    <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+                    <defaultSchemaName>h2</defaultSchemaName>
+                    <changeLogFile>src/main/resources/db.changelog/changelog.yml</changeLogFile>
+                    <url>jdbc:h2:${project.build.directory}/h2/tl_tables;</url>
+                </configuration>
+            </execution>
+        </executions>
+        <dependencies>
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>${h2.version}</version>
+            </dependency>
+        </dependencies>
+    </plugin>
+    
+    
+    <plugin>
+    <groupId>io.github.openfeign.querydsl</groupId>
+    <artifactId>querydsl-maven-plugin</artifactId>
+    <version>${querydsl-maven-plugin.version}</version>
+    
+    <executions>
+        <execution>
+            <configuration>
+                <jdbcDriver>org.h2.Driver</jdbcDriver>
+                <jdbcUrl>jdbc:h2:${project.build.directory}/h2/tl_tables;</jdbcUrl>
+                <packageName>com.ilan.query.sql</packageName>
+                <targetFolder>${project.basedir}/target/generated-sources/java</targetFolder>
+                <namePrefix>S</namePrefix>
+                <schemaToPackage>true</schemaToPackage>
+                <exportAll>false</exportAll>
+                <exportTables>true</exportTables>
+                <exportBeans>true</exportBeans>
+                <beanAddFullConstructor>true</beanAddFullConstructor>
+                <beanAddToString>true</beanAddToString>
+                <beanPrefix>P</beanPrefix>
+                <beanPrintSupertype>true</beanPrintSupertype>
+            </configuration>
+            <phase>generate-sources</phase>
+            <goals>
+                <goal>export</goal>
+            </goals>
+        </execution>
+    </executions>
+    
+    <dependencies>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
+        </dependency>
+    </dependencies>
+    </plugin>
+        
+</plugins>
+
+```
