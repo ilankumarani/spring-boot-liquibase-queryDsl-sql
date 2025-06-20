@@ -20,7 +20,7 @@
     
         <executions>
             <execution>
-                <id>update-schema</id>
+                <id>table-from-liquibase</id>
                 <phase>generate-sources</phase>
                 <goals>
                     <goal>update</goal>
@@ -29,7 +29,7 @@
                     <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
                     <defaultSchemaName>h2</defaultSchemaName>
                     <changeLogFile>src/main/resources/db.changelog/changelog.yml</changeLogFile>
-                    <url>jdbc:h2:${project.build.directory}/h2/tl_tables;</url>
+                    <url>jdbc:h2:${project.build.directory}/h2/tl_tables;INIT=create schema IF NOT EXISTS MYSCHEMA;</url>
                     <username>sa</username>  <!-- Directly specify the username -->
                     <password>password</password>  <!--  Consider using a more secure method for password -->
                 </configuration>
@@ -69,6 +69,7 @@
                 <beanPrefix>P</beanPrefix>
                 <beanPrintSupertype>true</beanPrintSupertype>
             </configuration>
+            <id>querdsl-sql-from-liquibase</id>
             <phase>generate-sources</phase>
             <goals>
                 <goal>export</goal>
