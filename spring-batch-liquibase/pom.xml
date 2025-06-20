@@ -12,7 +12,6 @@
 
     <properties>
         <skip-querydsl-sql-generation>false</skip-querydsl-sql-generation>
-        <module-name></module-name>
     </properties>
 
     <dependencies>
