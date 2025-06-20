@@ -1,0 +1,33 @@
+databaseChangeLog:
+  - include:
+      file: v1/create_spring_batch_sequence.xml
+      relativeToChangelogFile: true
+
+  - include:
+      file: v1/create_spring_batch_job_instance.xml
+      relativeToChangelogFile: true
+
+  - include:
+      file: v1/create_spring_batch_job_execution_params.xml
+      relativeToChangelogFile: true
+
+  - include:
+      file: v1/create_spring_batch_job_execution.xml
+      relativeToChangelogFile: true
+
+  - include:
+      file: v1/create_spring_batch_step_execution.xml
+      relativeToChangelogFile: true
+
+  - include:
+      file: v1/create_spring_batch_job_execution_context.xml
+      relativeToChangelogFile: true
+
+  - include:
+      file: v1/create-spring-batch-step-execution-context.xml
+      relativeToChangelogFile: true
+
+  - include:
+      file: v1/create_spring_batch_constraint.xml
+      relativeToChangelogFile: true
+

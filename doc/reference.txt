@@ -1,0 +1,48 @@
+jdbc:h2:~/test;DB_CLOSE_DELAY=-1
+
+java -jar h2-2.3.232.jar -web -url jdbc:h2:mem:test_mem -user sa -password ilan
+
+java -cp h2-2.3.232.jar -web -webAllowOthers -ifNotExists -tcp -tcpAllowOthers -webPort 8090 -url jdbc:h2:mem:test_mem -user sa -password ilan
+
+nohup mvn exec:java -Dexec.mainClass=com.example.H2Starter &
+
+start /B mvn exec:java -Dexec.mainClass=com.example.H2Starter
+
+java -jar h2*.jar -url jdbc:h2:~/test &
+
+    <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.6.0</version>
+        <executions>
+            <execution>
+                <id>start-h2</id>
+                <phase>pre-integration-test</phase>
+                <goals>
+                    <goal>java</goal>
+                </goals>
+                <configuration>
+                    <mainClass>org.h2.tools.Server</mainClass>
+                    <arguments>
+                        <argument>-tcp</argument>
+                        <argument>-tcpPort</argument>
+                        <argument>9092</argument>
+                    </arguments>
+                </configuration>
+            </execution>
+            <execution>
+                <id>stop-h2</id>
+                <phase>post-integration-test</phase>
+                <goals>
+                    <goal>java</goal>
+                </goals>
+                <configuration>
+                    <mainClass>org.h2.tools.Server</mainClass>
+                    <arguments>
+                        <argument>-tcpShutdown</argument>
+                        <argument>tcp://localhost:9092</argument>
+                    </arguments>
+                </configuration>
+            </execution>
+        </executions>
+    </plugin>

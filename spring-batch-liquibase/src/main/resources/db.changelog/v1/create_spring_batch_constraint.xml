@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+       http://www.liquibase.org/xml/ns/dbchangelog
+       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="create-spring-batch-step-execution-context-table-001" author="yourname">
+
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="BATCH_JOB_EXECUTION"/>
+            <tableExists tableName="BATCH_JOB_EXECUTION_CONTEXT"/>
+            <tableExists tableName="BATCH_JOB_EXECUTION_PARAMS"/>
+            <tableExists tableName="BATCH_STEP_EXECUTION"/>
+            <tableExists tableName="BATCH_STEP_EXECUTION_CONTEXT"/>
+            <not>
+                <foreignKeyConstraintExists foreignKeyTableName="BATCH_JOB_EXECUTION"
+                                            foreignKeyName="JOB_INSTANCE_EXECUTION_FK"/>
+                <foreignKeyConstraintExists foreignKeyTableName="BATCH_JOB_EXECUTION_CONTEXT"
+                                            foreignKeyName="JOB_EXEC_CTX_FK"/>
+                <foreignKeyConstraintExists foreignKeyTableName="BATCH_JOB_EXECUTION_PARAMS"
+                                            foreignKeyName="JOB_EXEC_PARAMS_FK"/>
+                <foreignKeyConstraintExists foreignKeyTableName="BATCH_STEP_EXECUTION"
+                                            foreignKeyName="JOB_EXECUTION_STEP_FK"/>
+                <foreignKeyConstraintExists foreignKeyTableName="BATCH_STEP_EXECUTION_CONTEXT"
+                                            foreignKeyName="STEP_EXEC_CTX_FK"/>
+            </not>
+
+        </preConditions>
+
+        <addForeignKeyConstraint
+                constraintName="JOB_INSTANCE_EXECUTION_FK"
+                baseTableName="BATCH_JOB_EXECUTION"
+                baseColumnNames="JOB_INSTANCE_ID"
+                referencedTableName="BATCH_JOB_INSTANCE"
+                referencedColumnNames="JOB_INSTANCE_ID"/>
+
+        <addForeignKeyConstraint
+                constraintName="JOB_EXEC_CTX_FK"
+                baseTableName="BATCH_JOB_EXECUTION_CONTEXT"
+                baseColumnNames="JOB_EXECUTION_ID"
+                referencedTableName="BATCH_JOB_EXECUTION"
+                referencedColumnNames="JOB_EXECUTION_ID"/>
+
+
+        <addForeignKeyConstraint
+                constraintName="JOB_EXEC_PARAMS_FK"
+                baseTableName="BATCH_JOB_EXECUTION_PARAMS"
+                baseColumnNames="JOB_EXECUTION_ID"
+                referencedTableName="BATCH_JOB_EXECUTION"
+                referencedColumnNames="JOB_EXECUTION_ID"/>
+
+        <addForeignKeyConstraint
+                constraintName="JOB_EXECUTION_STEP_FK"
+                baseTableName="BATCH_STEP_EXECUTION"
+                baseColumnNames="JOB_EXECUTION_ID"
+                referencedTableName="BATCH_JOB_EXECUTION"
+                referencedColumnNames="JOB_EXECUTION_ID"/>
+
+        <addForeignKeyConstraint
+                constraintName="STEP_EXEC_CTX_FK"
+                baseTableName="BATCH_STEP_EXECUTION_CONTEXT"
+                baseColumnNames="STEP_EXECUTION_ID"
+                referencedTableName="BATCH_STEP_EXECUTION"
+                referencedColumnNames="STEP_EXECUTION_ID"/>
+
+    </changeSet>
+
+
+</databaseChangeLog>

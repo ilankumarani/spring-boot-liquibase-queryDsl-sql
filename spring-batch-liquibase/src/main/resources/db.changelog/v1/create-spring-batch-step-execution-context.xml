@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+       http://www.liquibase.org/xml/ns/dbchangelog
+       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="create-spring-batch-step-execution-context-table-001" author="yourname">
+
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="BATCH_STEP_EXECUTION_CONTEXT"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="BATCH_STEP_EXECUTION_CONTEXT">
+            <column name="STEP_EXECUTION_ID" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="SHORT_CONTEXT" type="VARCHAR(2500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SERIALIZED_CONTEXT" type="TEXT"/>
+        </createTable>
+
+        <modifySql dbms="oracle">
+            <replace replace="TEXT" with="CLOB"/>
+        </modifySql>
+    </changeSet>
+
+</databaseChangeLog>

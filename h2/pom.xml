@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.0.0</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>io.github.ilankumarani</groupId>
+    <artifactId>sql-query-from-liquibase</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>sql-query-from-liquibase</name>
+    <description>Demo project for Spring Boot</description>
+    <url>https://github.com/ilankumarani/sql-query-from-liquibase</url>
+
+    <licenses>
+        <license/>
+    </licenses>
+    <developers>
+        <developer/>
+    </developers>
+    <modules>
+        <module>spring-batch-liquibase</module>
+        <module>liquibase-app</module>
+    </modules>
+    <scm>
+        <connection/>
+        <developerConnection/>
+        <tag/>
+        <url/>
+    </scm>
+    <properties>
+        <java.version>11</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <liquibase.version>4.29.2</liquibase.version>
+        <querydsl-maven-plugin.version>7.0</querydsl-maven-plugin.version>
+        <h2.version>2.3.232</h2.version>
+        <liquibase-maven-plugin.version>4.23.0</liquibase-maven-plugin.version>
+        <skip-h2-start>true</skip-h2-start>
+        <exec-maven-plugin.version>3.5.0</exec-maven-plugin.version>
+        <local-h2-directory>h2</local-h2-directory>
+        <h2database.port>8090</h2database.port>
+    </properties>
+
+
+    <build>
+
+        <pluginManagement>
+            <plugins>
+
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>${exec-maven-plugin.version}</version>
+
+                    <configuration>
+                        <async>true</async>
+                        <includePluginDependencies>true</includePluginDependencies>
+                        <includeProjectDependencies>true</includeProjectDependencies>
+                        <additionalClasspathElements>true</additionalClasspathElements>
+                    </configuration>
+
+                    <executions>
+
+
+                        <!-- Start H2 server -->
+                        <execution>
+                            <id>h2-server</id>
+                            <phase>clean</phase>
+                            <goals>
+                                <goal>java</goal>
+                            </goals>
+                            <configuration>
+                                <skip>${skip-h2-start}</skip>
+                                <mainClass>org.h2.tools.Server</mainClass>
+                                <commandlineArgs>-tcp -baseDir ~/var/h2</commandlineArgs>
+                            </configuration>
+                        </execution>
+                        <!-- Connect to H2 database -->
+                        <execution>
+                            <id>h2-command</id>
+                            <phase>clean</phase>
+                            <goals>
+                                <goal>java</goal>
+                            </goals>
+                            <configuration>
+                                <skip>${skip-h2-start}</skip>
+                                <mainClass>org.h2.tools.Shell</mainClass>
+                                <commandlineArgs>-url jdbc:h2:tcp://localhost/hello-1 -user sa</commandlineArgs>
+                            </configuration>
+                        </execution>
+
+
+                        <!--<execution>
+                            <id>start-h2</id>
+                            <phase>clean</phase>
+                            <goals>
+                                <goal>java</goal>
+                            </goals>
+                            <configuration>
+                                <skip>${skip-h2-start}</skip>
+                                <mainClass>org.h2.tools.Server</mainClass>
+                                <includePluginDependencies>true</includePluginDependencies>
+                                <includeProjectDependencies>true</includeProjectDependencies>
+                                <additionalClasspathElements>true</additionalClasspathElements>
+                                &lt;!&ndash;                                <arguments>&ndash;&gt;
+                                &lt;!&ndash;                                    <argument>-tcp</argument>&ndash;&gt;
+                                &lt;!&ndash;                                    <argument>-tcpDaemon</argument>&ndash;&gt;
+                                &lt;!&ndash;                                    <argument>-baseDir</argument>&ndash;&gt;
+                                &lt;!&ndash;                                    <argument>${project.build}/h2</argument>&ndash;&gt;
+                                &lt;!&ndash;                                </arguments>&ndash;&gt;
+
+                                <arguments>
+                                    &lt;!&ndash; Start also UI &ndash;&gt;
+                                    &lt;!&ndash;                                    <argument>-web</argument>&ndash;&gt;
+                                    &lt;!&ndash; db is available via tcp &ndash;&gt;
+                                    <argument>-tcp</argument>
+                                    <argument>-tcpPort</argument>
+                                    <argument>9092</argument>
+                                    <argument>-tcpDaemon</argument>
+                                    &lt;!&ndash; local file is present in project&ndash;&gt;
+                                    &lt;!&ndash;                                    <argument>-baseDir</argument>&ndash;&gt;
+                                    &lt;!&ndash;                                    <argument>${basedir}/${local-h2-directory}</argument>&ndash;&gt;
+
+                                    &lt;!&ndash; Other computers can connect to this db &ndash;&gt;
+                                    &lt;!&ndash;                                    <argument>-webAllowOthers</argument>&ndash;&gt;
+                                    &lt;!&ndash;                                    <argument>-webPort</argument>&ndash;&gt;
+                                    &lt;!&ndash;                                    <argument>${h2database.port}</argument>&ndash;&gt;
+                                    &lt;!&ndash; uncomment if you want to open h2 UI automatically &ndash;&gt;
+                                    &lt;!&ndash;                                     <argument>-browser</argument>&ndash;&gt;
+                                </arguments>
+                            </configuration>
+                        </execution>-->
+
+                        <!--<execution>
+                            <id>start-h2</id>
+                            <phase>pre-integration-test</phase>
+                            <goals>
+                                <goal>java</goal>
+                            </goals>
+                            <configuration>
+                                <mainClass>org.h2.tools.Server</mainClass>
+                                <includePluginDependencies>true</includePluginDependencies>
+                                <includeProjectDependencies>true</includeProjectDependencies>
+                                <additionalClasspathElements>true</additionalClasspathElements>
+                                <arguments>
+                                    <argument>-tcp</argument>
+                                    <argument>-tcpPort</argument>
+                                    <argument>9092</argument>
+                                </arguments>
+                            </configuration>
+                        </execution>-->
+
+                        <!--                        <execution>-->
+                        <!--                            <id>stop-h2</id>-->
+                        <!--                            <phase>post-integration-test</phase>-->
+                        <!--                            <goals>-->
+                        <!--                                <goal>java</goal>-->
+                        <!--                            </goals>-->
+                        <!--                            <configuration>-->
+                        <!--                                <mainClass>org.h2.tools.Server</mainClass>-->
+                        <!--                                <includePluginDependencies>true</includePluginDependencies>-->
+                        <!--                                <includeProjectDependencies>true</includeProjectDependencies>-->
+                        <!--                                <additionalClasspathElements>true</additionalClasspathElements>-->
+                        <!--                                <arguments>-->
+                        <!--                                    <argument>-tcpShutdown</argument>-->
+                        <!--                                    <argument>tcp://localhost:9092</argument>-->
+                        <!--                                </arguments>-->
+                        <!--                            </configuration>-->
+                        <!--                        </execution>-->
+
+                        <!--<execution>
+                            <id>start-h2-exec</id>
+                            <phase>clean</phase>
+                            <goals>
+                                <goal>exec</goal>
+                            </goals>
+                            <configuration>
+                                <skip>${skip-h2-start-exec}</skip>
+                                <async>true</async>
+                                <executable>java</executable>
+                                <includePluginDependencies>true</includePluginDependencies>
+                                <arguments>
+                                    <argument>-classpath</argument>
+                                    &lt;!&ndash; automatically creates the classpath using all project dependencies,
+                                         also adding the project build directory &ndash;&gt;
+                                    <classpath/>
+                                    <argument>org.h2.tools.Server</argument>
+&lt;!&ndash;                                    <argument>-tcp</argument>&ndash;&gt;
+&lt;!&ndash;                                    <argument>-tcpPort</argument>&ndash;&gt;
+&lt;!&ndash;                                    <argument>9092</argument>&ndash;&gt;
+                                </arguments>
+                                <executableDependency>
+                                    &lt;!&ndash; REFERENCES plugin dependency, see declaration below &ndash;&gt;
+                                    <groupId>com.h2database</groupId>
+                                    <artifactId>h2</artifactId>
+                                </executableDependency>
+                            </configuration>
+                        </execution>-->
+
+                        <!--<execution>
+                            <id>start-h2-java</id>
+                            <phase>generate-sources</phase>
+                            <goals>
+                                <goal>java</goal>
+                            </goals>
+                            <configuration>
+                                <skip>${skip-h2-start-java}</skip>
+                                <mainClass>org.h2.tools.Server</mainClass>
+                                <includePluginDependencies>true</includePluginDependencies>
+                                <includeProjectDependencies>true</includeProjectDependencies>
+                                <additionalClasspathElements>true</additionalClasspathElements>
+                                <arguments>
+                                </arguments>
+                            </configuration>
+                        </execution>-->
+
+                    </executions>
+
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.h2database</groupId>
+                            <artifactId>h2</artifactId>
+                            <version>${h2.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+
+                <!--<plugin>
+                    <groupId>io.github.openfeign.querydsl</groupId>
+                    <artifactId>querydsl-maven-plugin</artifactId>
+                    <version>${querydsl-maven-plugin.version}</version>
+
+                    <executions>
+                        <execution>
+                            <configuration>
+                                <jdbcDriver>org.h2.Driver</jdbcDriver>
+                                <jdbcUrl>jdbc:h2:${project.basedir}/target/tl_tables;AUTO_SERVER=TRUE</jdbcUrl>
+                                <packageName>com.ilan.query.sql</packageName>
+                                <targetFolder>${project.basedir}/target/generated-sources/java</targetFolder>
+                            </configuration>
+                            <goals>
+                                <goal>export</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.h2database</groupId>
+                            <artifactId>h2</artifactId>
+                            <version>${h2.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>-->
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <!--<plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>-->
+        </plugins>
+    </build>
+
+</project>
