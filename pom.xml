@@ -40,6 +40,7 @@
         <querydsl-maven-plugin.version>7.0</querydsl-maven-plugin.version>
         <h2.version>2.3.232</h2.version>
         <skip-querydsl-sql-generation>true</skip-querydsl-sql-generation>
+        <classgraph.version>4.8.179</classgraph.version>
     </properties>
 
 
