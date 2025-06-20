@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.0</version>
+        <version>3.5.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>io.github.ilankumarani</groupId>
@@ -91,6 +91,8 @@
                                 <skip>${skip-querydsl-sql-generation}</skip>
                                 <jdbcDriver>org.h2.Driver</jdbcDriver>
                                 <jdbcUrl>jdbc:h2:${project.build.directory}/h2/tl_tables;</jdbcUrl>
+                                <jdbcUser>sa</jdbcUser>
+                                <jdbcPassword></jdbcPassword>
                                 <packageName>com.ilan.query.sql</packageName>
                                 <targetFolder>${project.basedir}/target/generated-sources/java</targetFolder>
                                 <namePrefix>S</namePrefix>
