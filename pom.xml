@@ -56,7 +56,7 @@
 
                     <executions>
                         <execution>
-                            <id>update-schema</id>
+                            <id>table-from-liquibase</id>
                             <phase>generate-sources</phase>
                             <goals>
                                 <goal>update</goal>
