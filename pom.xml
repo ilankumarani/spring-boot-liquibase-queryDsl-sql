@@ -38,7 +38,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <querydsl-maven-plugin.version>7.0</querydsl-maven-plugin.version>
-        <h2.version>2.3.232</h2.version>
+        <h2-db-version>${h2.version}</h2-db-version>
         <skip-querydsl-sql-generation>true</skip-querydsl-sql-generation>
         <classgraph.version>4.8.179</classgraph.version>
     </properties>
@@ -74,7 +74,7 @@
                         <dependency>
                             <groupId>com.h2database</groupId>
                             <artifactId>h2</artifactId>
-                            <version>${h2.version}</version>
+                            <version>${h2-db-version}</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -114,7 +114,7 @@
                         <dependency>
                             <groupId>com.h2database</groupId>
                             <artifactId>h2</artifactId>
-                            <version>${h2.version}</version>
+                            <version>${h2-db-version}</version>
                         </dependency>
                     </dependencies>
                 </plugin>

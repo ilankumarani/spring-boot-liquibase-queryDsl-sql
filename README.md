@@ -5,7 +5,8 @@
 
 <properties>
     <querydsl-maven-plugin.version>7.0</querydsl-maven-plugin.version>
-    <h2.version>2.3.232</h2.version>
+    <!-- h2.version from spring parent-->
+    <h2-db-version>${h2.version}</h2-db-version>
     <!-- liquibase.version from spring parent-->
     <liquibase-maven-plugin>${liquibase.version}</liquibase-maven-plugin>
 </properties>
@@ -36,7 +37,7 @@
             <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
-                <version>${h2.version}</version>
+                <version>${h2-db-version}</version>
             </dependency>
         </dependencies>
     </plugin>
@@ -75,7 +76,7 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>${h2.version}</version>
+            <version>${h2-db-version}</version>
         </dependency>
     </dependencies>
     </plugin>
