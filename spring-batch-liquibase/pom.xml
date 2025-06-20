@@ -76,10 +76,13 @@
                             <beanAddToString>true</beanAddToString>
                             <beanPrefix>P</beanPrefix>
                             <beanPrintSupertype>true</beanPrintSupertype>
+
+<!--                            <packageName>com.abc.entity</packageName>-->
                         </configuration>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>export</goal>
+<!--                            <goal>jpa-export</goal>-->
                         </goals>
                     </execution>
                 </executions>
@@ -89,6 +92,26 @@
                         <groupId>com.h2database</groupId>
                         <artifactId>h2</artifactId>
                         <version>${h2.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>io.github.openfeign.querydsl</groupId>
+                        <artifactId>querydsl-jpa</artifactId>
+                        <version>${querydsl-maven-plugin.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>jakarta.persistence</groupId>
+                        <artifactId>jakarta.persistence-api</artifactId>
+                        <version>${jakarta-persistence.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>io.github.openfeign.querydsl</groupId>
+                        <artifactId>querydsl-apt</artifactId>
+                        <version>${querydsl-maven-plugin.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>io.github.classgraph</groupId>
+                        <artifactId>classgraph</artifactId>
+                        <version>4.8.179</version>
                     </dependency>
                 </dependencies>
             </plugin>
