@@ -7,7 +7,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>spring-batch-liquibase</artifactId>
-    <name>Archetype - sample-liquibase</name>
+    <name>spring-batch-liquibase(sample-liquibase)</name>
     <url>http://maven.apache.org</url>
 
     <properties>
