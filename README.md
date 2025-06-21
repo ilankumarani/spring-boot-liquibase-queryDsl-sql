@@ -23,6 +23,7 @@
 ```xml
 
 <properties>
+    <jdbcUrl>jdbc:h2:${project.build.directory}/h2/tl_tables;DB_CLOSE_ON_EXIT=FALSE;INIT=CREATE SCHEMA IF NOT EXISTS ${schema-name}\;CREATE SCHEMA IF NOT EXISTS SCHEMA_2;</jdbcUrl>
     <querydsl-maven-plugin.version>7.0</querydsl-maven-plugin.version>
     <!-- h2.version from spring parent-->
     <h2-db-version>${h2.version}</h2-db-version>
