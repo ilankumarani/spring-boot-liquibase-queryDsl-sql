@@ -28,6 +28,6 @@ databaseChangeLog:
       relativeToChangelogFile: true
 
   - include:
-      file: v1/create_spring_batch_constraint.xml
+      file: v1/adding_spring_batch_constraint.xml
       relativeToChangelogFile: true
 
