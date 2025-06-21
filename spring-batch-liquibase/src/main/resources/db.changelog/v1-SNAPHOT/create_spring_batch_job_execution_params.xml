@@ -5,23 +5,26 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
 
-    <changeSet id="create-batch-job-instance-table" author="ILAN">
+    <changeSet id="create-batch-job-execution-params-table-001" author="ILAN">
 
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="BATCH_JOB_INSTANCE"/>
+                <tableExists tableName="BATCH_JOB_EXECUTION_PARAMS"/>
             </not>
         </preConditions>
 
-        <createTable tableName="BATCH_JOB_INSTANCE">
-            <column name="JOB_INSTANCE_ID" type="BIGINT">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="VERSION" type="BIGINT"/>
-            <column name="JOB_NAME" type="VARCHAR(100)">
+        <createTable tableName="BATCH_JOB_EXECUTION_PARAMS">
+            <column name="JOB_EXECUTION_ID" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="JOB_KEY" type="VARCHAR(32)">
+            <column name="PARAMETER_NAME" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PARAMETER_TYPE" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PARAMETER_VALUE" type="VARCHAR(2500)"/>
+            <column name="IDENTIFYING" type="CHAR(1)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
