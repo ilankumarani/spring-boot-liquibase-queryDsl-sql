@@ -64,7 +64,6 @@
                             </goals>
                             <configuration>
                                 <skip>${skip-querydsl-sql-generation}</skip>
-                                <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
                                 <defaultSchemaName>h2</defaultSchemaName>
                                 <changeLogFile>src/main/resources/db.changelog/changelog.yml</changeLogFile>
                                 <url>jdbc:h2:${project.build.directory}/h2/tl_tables;INIT=create schema IF NOT EXISTS MYSCHEMA;</url>
@@ -100,7 +99,7 @@
                                 <targetFolder>${project.basedir}/target/generated-sources/java</targetFolder>
                                 <namePrefix>S</namePrefix>
                                 <schemaToPackage>true</schemaToPackage>
-                                <exportAll>false</exportAll>
+                                <exportAll>true</exportAll>
                                 <exportTables>true</exportTables>
                                 <exportBeans>true</exportBeans>
                                 <beanAddFullConstructor>true</beanAddFullConstructor>
