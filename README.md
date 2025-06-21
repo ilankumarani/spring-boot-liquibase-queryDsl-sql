@@ -69,7 +69,7 @@
                 <beanPrefix>P</beanPrefix>
                 <beanPrintSupertype>true</beanPrintSupertype>
             </configuration>
-            <id>querdsl-sql-from-liquibase</id>
+            <id>querydsl-sql-from-liquibase</id>
             <phase>generate-sources</phase>
             <goals>
                 <goal>export</goal>
