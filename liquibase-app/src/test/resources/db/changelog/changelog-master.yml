@@ -1,6 +1,6 @@
 databaseChangeLog:
   - include:
-      file: changelog/001-create-tables.yaml
+      file: classpath:/db.changelog/changelog.yml
       relativeToChangelogFile: true
 
   - include:
