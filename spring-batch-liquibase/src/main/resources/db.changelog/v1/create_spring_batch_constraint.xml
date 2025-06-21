@@ -6,14 +6,16 @@
        http://www.liquibase.org/xml/ns/dbchangelog
        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
 
-    <changeSet id="create-spring-batch-step-execution-context-table-001" author="ILAN">
+    <changeSet id="create-spring-batch-constraints-001" author="ILAN">
 
         <preConditions onFail="MARK_RAN">
-            <tableExists tableName="BATCH_JOB_EXECUTION"/>
-            <tableExists tableName="BATCH_JOB_EXECUTION_CONTEXT"/>
+            <tableExists tableName="BATCH_JOB_INSTANCE"/>
             <tableExists tableName="BATCH_JOB_EXECUTION_PARAMS"/>
+            <tableExists tableName="BATCH_JOB_EXECUTION"/>
             <tableExists tableName="BATCH_STEP_EXECUTION"/>
+            <tableExists tableName="BATCH_JOB_EXECUTION_CONTEXT"/>
             <tableExists tableName="BATCH_STEP_EXECUTION_CONTEXT"/>
+
             <not>
                 <foreignKeyConstraintExists foreignKeyTableName="BATCH_JOB_EXECUTION"
                                             foreignKeyName="JOB_INSTANCE_EXECUTION_FK"/>
