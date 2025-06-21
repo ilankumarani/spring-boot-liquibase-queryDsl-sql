@@ -41,6 +41,7 @@
         <h2-db-version>${h2.version}</h2-db-version>
         <skip-querydsl-sql-generation>true</skip-querydsl-sql-generation>
         <classgraph.version>4.8.179</classgraph.version>
+        <querydsl-maven-plugin.packageName>com.ilan.query.sql</querydsl-maven-plugin.packageName>
     </properties>
 
 
@@ -95,7 +96,7 @@
                                 <jdbcUrl>jdbc:h2:${project.build.directory}/h2/tl_tables</jdbcUrl>
                                 <jdbcUser>sa</jdbcUser>
                                 <jdbcPassword>password</jdbcPassword>
-                                <packageName>com.ilan.query.sql</packageName>
+                                <packageName>${querydsl-maven-plugin.packageName}</packageName>
                                 <targetFolder>${project.basedir}/target/generated-sources/java</targetFolder>
                                 <namePrefix>S</namePrefix>
                                 <schemaToPackage>true</schemaToPackage>
@@ -106,11 +107,14 @@
                                 <beanAddToString>true</beanAddToString>
                                 <beanPrefix>P</beanPrefix>
                                 <beanPrintSupertype>true</beanPrintSupertype>
+
+                                <packages>${querydsl-maven-plugin.packageName}</packages>
                             </configuration>
                             <id>querydsl-sql-from-liquibase</id>
                             <phase>generate-sources</phase>
                             <goals>
                                 <goal>export</goal>
+                                <goal>jpa-export</goal>
                             </goals>
                         </execution>
                     </executions>
