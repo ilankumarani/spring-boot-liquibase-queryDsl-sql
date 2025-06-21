@@ -31,3 +31,7 @@ databaseChangeLog:
       file: v1/adding_spring_batch_constraint.xml
       relativeToChangelogFile: true
 
+  - include:
+      file: v2/create_owner_table.xml
+      relativeToChangelogFile: true
+

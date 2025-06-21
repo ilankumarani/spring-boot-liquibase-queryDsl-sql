@@ -42,6 +42,7 @@
         <skip-querydsl-sql-generation>true</skip-querydsl-sql-generation>
         <classgraph.version>4.8.179</classgraph.version>
         <querydsl-maven-plugin.packageName>com.ilan.query.sql</querydsl-maven-plugin.packageName>
+        <schema-name/>
     </properties>
 
 
@@ -66,7 +67,7 @@
                                 <skip>${skip-querydsl-sql-generation}</skip>
                                 <defaultSchemaName>h2</defaultSchemaName>
                                 <changeLogFile>src/main/resources/db.changelog/changelog.yml</changeLogFile>
-                                <url>jdbc:h2:${project.build.directory}/h2/tl_tables;INIT=create schema IF NOT EXISTS MYSCHEMA;</url>
+                                <url>jdbc:h2:${project.build.directory}/h2/tl_tables;DB_CLOSE_ON_EXIT=FALSE;INIT=create schema IF NOT EXISTS ${schema-name};</url>
                                 <username>sa</username>  <!-- Directly specify the username -->
                                 <password>password</password>  <!--  Consider using a more secure method for password -->
                             </configuration>

@@ -12,6 +12,7 @@
 
     <properties>
         <skip-querydsl-sql-generation>false</skip-querydsl-sql-generation>
+        <schema-name>OWNER_SCHEMA</schema-name>
     </properties>
 
     <dependencies>
