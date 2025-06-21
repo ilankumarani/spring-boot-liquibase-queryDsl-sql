@@ -1,5 +1,21 @@
 
-
+#### Execute Liquibase in H2(Embedded local as file system)
+```xml
+<plugin>
+    <groupId>org.liquibase</groupId>
+    <artifactId>liquibase-maven-plugin</artifactId>
+    <version>3.4.1</version>
+   <configuration>
+        <changeLogFile>
+           /src/main/resources/liquibase-outputChangeLog.xml
+        </changeLogFile>
+        <driver>org.h2.Driver</driver>
+        <url>jdbc:h2:file:~/taskapp</url>
+        <username>sa</username>
+        <password>password</password>
+     </configuration>               
+</plugin>
+```
 
 ```xml
 
