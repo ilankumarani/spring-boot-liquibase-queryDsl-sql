@@ -23,7 +23,7 @@
         <developer/>
     </developers>
     <modules>
-        <module>spring-batch-liquibase</module>
+        <module>sample-spring-batch-liquibase</module>
         <module>liquibase-app</module>
     </modules>
     <scm>
@@ -43,6 +43,7 @@
         <classgraph.version>4.8.179</classgraph.version>
         <querydsl-maven-plugin.packageName>com.ilan.query.sql</querydsl-maven-plugin.packageName>
         <schema-name/>
+        <spring-boot-maven-plugin.skip>true</spring-boot-maven-plugin.skip>
     </properties>
 
 
@@ -98,14 +99,14 @@
                                 <packageName>${querydsl-maven-plugin.packageName}</packageName>
                                 <targetFolder>${project.basedir}/target/generated-sources/java</targetFolder>
                                 <namePrefix>S</namePrefix>
-                                <schemaToPackage>true</schemaToPackage>
-                                <exportAll>true</exportAll>
-                                <exportTables>true</exportTables>
-                                <exportBeans>true</exportBeans>
-                                <beanAddFullConstructor>true</beanAddFullConstructor>
-                                <beanAddToString>true</beanAddToString>
+                                <schemaToPackage>${spring-boot-maven-plugin.skip}</schemaToPackage>
+                                <exportAll>${spring-boot-maven-plugin.skip}</exportAll>
+                                <exportTables>${spring-boot-maven-plugin.skip}</exportTables>
+                                <exportBeans>${spring-boot-maven-plugin.skip}</exportBeans>
+                                <beanAddFullConstructor>${spring-boot-maven-plugin.skip}</beanAddFullConstructor>
+                                <beanAddToString>${spring-boot-maven-plugin.skip}</beanAddToString>
                                 <beanPrefix>P</beanPrefix>
-                                <beanPrintSupertype>true</beanPrintSupertype>
+                                <beanPrintSupertype>${spring-boot-maven-plugin.skip}</beanPrintSupertype>
 
                                 <packages>${querydsl-maven-plugin.packageName}</packages>
                             </configuration>
@@ -147,6 +148,28 @@
                     </dependencies>
                 </plugin>
 
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <configuration>
+                        <skip>${spring-boot-maven-plugin.skip}</skip>
+                        <excludes>
+                            <exclude>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                            </exclude>
+                        </excludes>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                                <goal>build-info</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
             </plugins>
         </pluginManagement>
         <plugins>
@@ -159,22 +182,12 @@
                 <groupId>io.github.openfeign.querydsl</groupId>
                 <artifactId>querydsl-maven-plugin</artifactId>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
-            <!--<plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>-->
+
         </plugins>
     </build>
 

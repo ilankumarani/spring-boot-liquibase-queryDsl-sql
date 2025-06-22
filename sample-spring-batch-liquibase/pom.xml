@@ -6,12 +6,13 @@
         <artifactId>sql-query-from-liquibase</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>spring-batch-liquibase</artifactId>
+    <artifactId>sample-spring-batch-liquibase</artifactId>
     <name>spring-batch-liquibase(sample-liquibase)</name>
     <url>http://maven.apache.org</url>
 
     <properties>
         <skip-querydsl-sql-generation>false</skip-querydsl-sql-generation>
+        <spring-boot-maven-plugin.skip>true</spring-boot-maven-plugin.skip>
         <schema-name>OWNER_SCHEMA</schema-name>
     </properties>
 
