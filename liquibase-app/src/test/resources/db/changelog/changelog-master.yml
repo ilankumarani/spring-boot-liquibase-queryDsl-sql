@@ -4,7 +4,7 @@ databaseChangeLog:
       relativeToChangelogFile: true
 
   - include:
-      file: changelog/002-insert-data.yaml
+      file: changelog/db.changelog/changelog.yml
       relativeToChangelogFile: true
 
   - includeAll:

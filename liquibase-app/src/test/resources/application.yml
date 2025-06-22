@@ -11,4 +11,4 @@ spring:
         driverClassName: org.h2.Driver
         username: sa
         password: password
-        url: jdbc:h2:mem:testDb;INIT=CREATE SCHEMA IF NOT EXISTS OWNER_SCHEMA;
+        url: jdbc:h2:mem:testDb;INIT=CREATE SCHEMA IF NOT EXISTS OWNER_SCHEMA\;CREATE SCHEMA IF NOT EXISTS BLOG_SCHEMA;

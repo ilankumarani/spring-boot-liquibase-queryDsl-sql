@@ -6,7 +6,7 @@
         <artifactId>sql-query-from-liquibase</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>sample-module-liquibase</artifactId>
+    <artifactId>sample-blog-liquibase</artifactId>
     <name>sample-module-liquibase - (sample-liquibase)</name>
     <url>http://maven.apache.org</url>
 

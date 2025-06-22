@@ -24,8 +24,8 @@
     </developers>
     <modules>
         <module>sample-spring-batch-liquibase</module>
+        <module>sample-blog-liquibase</module>
         <module>liquibase-app</module>
-        <module>sample-module-liquibase</module>
     </modules>
     <scm>
         <connection/>
