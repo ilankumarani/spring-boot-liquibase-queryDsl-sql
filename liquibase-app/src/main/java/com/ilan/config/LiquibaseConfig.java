@@ -18,9 +18,9 @@ public class LiquibaseConfig {
     private static final Logger LOGGER = LoggerFactory.getLogger(LiquibaseConfig.class);
 
 
-    @Bean
+   /* @Bean
     @ConfigurationProperties(prefix = "spring.liquibase")
     public SpringLiquibase springLiquibase(DataSource dataSource) {
         return new SpringLiquibase();
-    }
+    }*/
 }

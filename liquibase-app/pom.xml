@@ -21,7 +21,7 @@
 
         <dependency>
             <groupId>io.github.ilankumarani</groupId>
-            <artifactId>sample-blog-liquibase</artifactId>
+            <artifactId>sample-blog-lq</artifactId>
             <version>${project.version}</version>
         </dependency>
 
