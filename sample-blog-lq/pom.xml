@@ -6,13 +6,15 @@
         <artifactId>sql-query-from-liquibase</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>sample-blog-liquibase</artifactId>
-    <name>sample-module-liquibase - (sample-liquibase)</name>
+    <artifactId>sample-blog-lq</artifactId>
+    <name>sample-module-liquibase(sample-liquibase)</name>
     <url>http://maven.apache.org</url>
 
     <properties>
         <skip-querydsl-sql-generation>false</skip-querydsl-sql-generation>
-        <spring-boot-maven-plugin.skip>true</spring-boot-maven-plugin.skip>
+        <maven-resources-plugin.skip>false</maven-resources-plugin.skip>
+        <maven-jar-plugin.skip>false</maven-jar-plugin.skip>
+        <spring-boot-maven-plugin.skip>${maven-resources-plugin.skip}</spring-boot-maven-plugin.skip>
         <schema-name>BLOG_SCHEMA</schema-name>
     </properties>
 

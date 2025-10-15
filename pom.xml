@@ -23,8 +23,8 @@
         <developer/>
     </developers>
     <modules>
-        <module>sample-spring-batch-liquibase</module>
-        <module>sample-blog-liquibase</module>
+        <module>sample-spring-batch-lq</module>
+        <module>sample-blog-lq</module>
         <module>liquibase-app</module>
     </modules>
     <scm>
@@ -40,11 +40,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <querydsl-maven-plugin.version>7.0</querydsl-maven-plugin.version>
         <h2-db-version>${h2.version}</h2-db-version>
-        <skip-querydsl-sql-generation>true</skip-querydsl-sql-generation>
+        <skip-querydsl-sql-generation>${maven-resources-plugin.skip}</skip-querydsl-sql-generation>
         <classgraph.version>4.8.179</classgraph.version>
         <querydsl-maven-plugin.packageName>com.ilan.query.sql</querydsl-maven-plugin.packageName>
         <schema-name/>
-        <spring-boot-maven-plugin.skip>true</spring-boot-maven-plugin.skip>
+        <spring-boot-maven-plugin.skip>${maven-resources-plugin.skip}</spring-boot-maven-plugin.skip>
+        <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
+        <maven-resources-plugin.skip>true</maven-resources-plugin.skip>
+        <maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
     </properties>
 
 
@@ -52,6 +55,33 @@
 
         <pluginManagement>
             <plugins>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${maven-resources-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>copy-liquibase</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>copy-resources</goal>
+                            </goals>
+                            <configuration>
+                                <skip>${maven-resources-plugin.skip}</skip>
+                                <outputDirectory>${project.build.directory}/classes/${project.artifactId}/liquibase
+                                </outputDirectory>
+                                <includeEmptyDirs>false</includeEmptyDirs>
+                                <resources>
+                                    <resource>
+                                        <directory>${project.basedir}/src/main/resources/liquibase</directory>
+                                        <filtering>false</filtering>
+                                    </resource>
+                                </resources>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
 
                 <plugin>
                     <groupId>org.liquibase</groupId>
@@ -67,10 +97,13 @@
                             </goals>
                             <configuration>
                                 <skip>${skip-querydsl-sql-generation}</skip>
-                                <changeLogFile>src/main/resources/db.changelog/changelog.yml</changeLogFile>
-                                <url>jdbc:h2:${project.build.directory}/h2/tl_tables;DB_CLOSE_ON_EXIT=FALSE;INIT=CREATE SCHEMA IF NOT EXISTS ${schema-name}\;CREATE SCHEMA IF NOT EXISTS SCHEMA_2;</url>
+                                <changeLogFile>src/main/resources/liquibase/changelog/changelog.yml</changeLogFile>
+                                <url>jdbc:h2:${project.build.directory}/h2/tl_tables;DB_CLOSE_ON_EXIT=FALSE;INIT=CREATE
+                                    SCHEMA IF NOT EXISTS ${schema-name}\;CREATE SCHEMA IF NOT EXISTS SCHEMA_2;
+                                </url>
                                 <username>sa</username>  <!-- Directly specify the username -->
-                                <password>password</password>  <!--  Consider using a more secure method for password -->
+                                <password>password
+                                </password>  <!--  Consider using a more secure method for password -->
                             </configuration>
                         </execution>
                     </executions>
@@ -167,6 +200,57 @@
                                 <goal>repackage</goal>
                                 <goal>build-info</goal>
                             </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${maven-jar-plugin.version}</version>
+                    <executions>
+                        <!-- 1) Default jar -->
+                        <execution>
+                            <id>default-jar</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                        <!-- 2) Liquibase jar -->
+                        <execution>
+                            <id>liquibase-jar</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                            <configuration>
+                                <classifier>liquibase</classifier>
+                                <!-- Only include API packages -->
+                                <includes>
+                                    <include>**/liquibase/**</include>
+                                </includes>
+                                <excludes>
+                                    <exclude>**/query/sql/**</exclude>
+                                </excludes>
+                            </configuration>
+                        </execution>
+                        <!-- 2) QueryDsl jar -->
+                        <execution>
+                            <id>sql-query-dsl-jar</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                            <configuration>
+                                <classifier>sql-query-dsl</classifier>
+                                <!-- Only include API packages -->
+                                <includes>
+                                    <include>**/query/sql/**</include>
+                                </includes>
+                                <excludes>
+                                    <exclude>**/liquibase/**</exclude>
+                                </excludes>
+                            </configuration>
                         </execution>
                     </executions>
                 </plugin>
