@@ -45,6 +45,8 @@
         <querydsl-maven-plugin.packageName>com.ilan.query.sql</querydsl-maven-plugin.packageName>
         <schema-name/>
         <spring-boot-maven-plugin.skip>true</spring-boot-maven-plugin.skip>
+        <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
+        <maven-resources-plugin.skip>true</maven-resources-plugin.skip>
     </properties>
 
 
@@ -52,6 +54,32 @@
 
         <pluginManagement>
             <plugins>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${maven-resources-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>copy-liquibase</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>copy-resources</goal>
+                            </goals>
+                            <configuration>
+                                <skip>${maven-resources-plugin.skip}</skip>
+                                <outputDirectory>${project.build.directory}/classes/${project.artifactId}/liquibase</outputDirectory>
+                                <includeEmptyDirs>false</includeEmptyDirs>
+                                <resources>
+                                    <resource>
+                                        <directory>${project.basedir}/src/main/resources/liquibase</directory>
+                                        <filtering>false</filtering>
+                                    </resource>
+                                </resources>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
 
                 <plugin>
                     <groupId>org.liquibase</groupId>
@@ -67,7 +95,7 @@
                             </goals>
                             <configuration>
                                 <skip>${skip-querydsl-sql-generation}</skip>
-                                <changeLogFile>src/main/resources/${project.artifactId}/liquibase/changelog/changelog.yml</changeLogFile>
+                                <changeLogFile>src/main/resources/liquibase/changelog/changelog.yml</changeLogFile>
                                 <url>jdbc:h2:${project.build.directory}/h2/tl_tables;DB_CLOSE_ON_EXIT=FALSE;INIT=CREATE SCHEMA IF NOT EXISTS ${schema-name}\;CREATE SCHEMA IF NOT EXISTS SCHEMA_2;</url>
                                 <username>sa</username>  <!-- Directly specify the username -->
                                 <password>password</password>  <!--  Consider using a more secure method for password -->

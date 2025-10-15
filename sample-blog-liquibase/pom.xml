@@ -12,6 +12,7 @@
 
     <properties>
         <skip-querydsl-sql-generation>false</skip-querydsl-sql-generation>
+        <maven-resources-plugin.skip>false</maven-resources-plugin.skip>
         <spring-boot-maven-plugin.skip>true</spring-boot-maven-plugin.skip>
         <schema-name>BLOG_SCHEMA</schema-name>
     </properties>
