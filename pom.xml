@@ -47,7 +47,7 @@
         <spring-boot-maven-plugin.skip>${maven-resources-plugin.skip}</spring-boot-maven-plugin.skip>
         <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
         <maven-resources-plugin.skip>true</maven-resources-plugin.skip>
-        <maven-jar-plugin.skip>true</maven-jar-plugin.skip>
+        <maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
     </properties>
 
 
@@ -206,10 +206,7 @@
 
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.3.0</version>
-                    <configuration>
-                        <skip>${maven-jar-plugin.skip}</skip>
-                    </configuration>
+                    <version>${maven-jar-plugin.version}</version>
                     <executions>
                         <!-- 1) Default jar -->
                         <execution>
@@ -218,13 +215,6 @@
                             <goals>
                                 <goal>jar</goal>
                             </goals>
-                            <configuration>
-                                <!-- Only include API packages -->
-                                <includes>
-                                    <include>**/liquibase/**</include>
-                                    <include>**/query/sql/**</include>
-                                </includes>
-                            </configuration>
                         </execution>
                         <!-- 2) Liquibase jar -->
                         <execution>

@@ -1,3 +1,8 @@
 spring:
   liquibase:
-    change-log: classpath:/db/changelog/changelog-master.yml
+    enabled: true
+    change-log: classpath:/sample-blog-lq/liquibase/changelog/changelog.yml
+    liquibase-schema: PUBLIC
+    default-schema: BLOG_SCHEMA
+    database-change-log-table: ${spring.application.name}_changeLog
+    database-change-log-lock-table: ${spring.application.name}_logLock
