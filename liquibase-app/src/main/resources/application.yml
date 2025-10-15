@@ -14,7 +14,7 @@ spring:
         url: jdbc:h2:mem:testDb;
     liquibase:
         enabled: true
-        change-log: classpath:/sample-blog-liquibase/liquibase/changelog/changelog.yml
+        change-log: classpath:/liquibase/changelog/changelog.yml
         liquibase-schema: PUBLIC
         default-schema: BLOG_SCHEMA
         database-change-log-table: ${spring.application.name}_changeLog

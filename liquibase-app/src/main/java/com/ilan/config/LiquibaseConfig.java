@@ -13,16 +13,14 @@ import javax.sql.DataSource;
 
 
 @Configuration
-@ConditionalOnProperty(prefix = "spring", name = "enabled", havingValue = "true")
 public class LiquibaseConfig {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LiquibaseConfig.class);
 
 
-//    @Bean
-//    @ConfigurationProperties(prefix = "spring.liquibase")
-//    public SpringLiquibase springLiquibase(DataSource dataSource) {
-//        SpringLiquibase liquibase = new SpringLiquibase();
-//        return liquibase;
-//    }
+    @Bean
+    @ConfigurationProperties(prefix = "spring.liquibase")
+    public SpringLiquibase springLiquibase(DataSource dataSource) {
+        return new SpringLiquibase();
+    }
 }
