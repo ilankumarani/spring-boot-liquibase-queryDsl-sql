@@ -1,5 +1,9 @@
 databaseChangeLog:
   - include:
+      file: v1/create_batch_schema.xml
+      relativeToChangelogFile: true
+
+  - include:
       file: v1/create_spring_batch_sequence.xml
       relativeToChangelogFile: true
 
