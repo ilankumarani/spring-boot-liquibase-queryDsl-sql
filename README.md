@@ -48,7 +48,7 @@
                 <configuration>
                     <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
                     <defaultSchemaName>h2</defaultSchemaName>
-                    <changeLogFile>src/main/resources/db.changelog/changelog.yml</changeLogFile>
+                    <changeLogFile>src/main/resources/liquibase/changelog/changelog.yml</changeLogFile>
                     <url>jdbc:h2:${project.build.directory}/h2/tl_tables;INIT=create schema IF NOT EXISTS MYSCHEMA;</url>
                     <username>sa</username>  <!-- Directly specify the username -->
                     <password>password</password>  <!--  Consider using a more secure method for password -->

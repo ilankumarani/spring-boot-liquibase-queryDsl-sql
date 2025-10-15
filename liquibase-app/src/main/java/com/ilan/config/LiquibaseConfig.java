@@ -1,3 +1,4 @@
+/*
 package com.ilan.config;
 
 import liquibase.integration.spring.SpringLiquibase;
@@ -27,3 +28,4 @@ public class LiquibaseConfig {
         return liquibase;
     }
 }
+*/
