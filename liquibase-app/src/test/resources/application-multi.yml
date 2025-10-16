@@ -1,8 +1,11 @@
-spring:
-  liquibase:
-    enabled: true
-    change-log: classpath:/sample-blog-lq/liquibase/changelog/changelog.yml
-    liquibase-schema: PUBLIC
-    default-schema: BLOG_SCHEMA
-    database-change-log-table: ${spring.application.name}_changeLog
-    database-change-log-lock-table: ${spring.application.name}_logLock
+module.name: sample-spring-batch-lq
+create-on.schema: BATCH_SCHEMA
+
+#spring:
+#  liquibase:
+#    enabled: true
+#    change-log: classpath:/sample-spring-batch-lq/liquibase/changelog/changelog.yml
+#    liquibase-schema: PUBLIC
+#    default-schema: BATCH_SCHEMA
+#    database-change-log-table: ${spring.application.name}_changeLog
+#    database-change-log-lock-table: ${spring.application.name}_logLock

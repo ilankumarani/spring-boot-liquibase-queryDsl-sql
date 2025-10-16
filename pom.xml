@@ -80,6 +80,25 @@
                                 </resources>
                             </configuration>
                         </execution>
+
+<!--                        <execution>-->
+<!--                            <id>copy-test-liquibase</id>-->
+<!--                            <phase>prepare-package</phase>-->
+<!--                            <goals>-->
+<!--                                <goal>copy-resources</goal>-->
+<!--                            </goals>-->
+<!--                            <configuration>-->
+<!--                                <skip>${maven-resources-plugin.skip}</skip>-->
+<!--                                <outputDirectory>${project.build.directory}/test-classes/${project.artifactId}/liquibase</outputDirectory>-->
+<!--                                <includeEmptyDirs>false</includeEmptyDirs>-->
+<!--                                <resources>-->
+<!--                                    <resource>-->
+<!--                                        <directory>${project.basedir}/src/main/resources/liquibase</directory>-->
+<!--                                        <filtering>false</filtering>-->
+<!--                                    </resource>-->
+<!--                                </resources>-->
+<!--                            </configuration>-->
+<!--                        </execution>-->
                     </executions>
                 </plugin>
 
